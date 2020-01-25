@@ -17,7 +17,6 @@ def city_correct(city):
         'Authorization': 'Token #', #dadata API key
     }
     data = str('{ "query": "' + city + '", "locations": [{"country": "*"}], "count": 1}')
-
     data = data.encode("utf-8")
     response = requests.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', headers=headers, data=data)
 
@@ -41,13 +40,7 @@ def city_correct(city):
 def send_message(message, chatID):
     """sending message to user by chatID"""
 
-    #print(message.from_user.username)
-    #if message.text[0] == '/': #if we got some '/' command
-        #print(message.text[0])
-        #start_message(message)
-    #else:
-
-    request = apiai.ApiAI('f3ffb090b48142c38a7dc4b84c26354b').text_request() #dialogfow API key
+    request = apiai.ApiAI('#').text_request() #dialogfow API key
     request.lang = 'ru'
     request.session_id = str(chatID) #TODO it's work?
     request.query = message.text
@@ -97,14 +90,13 @@ def start_message(message, chatID, city_type, region):
             city_type = 'рабочем поселке'
         city = message.split(' ')[1]
         print(city)
+
         try: #if user send right city name
             observation = owm.weather_at_place(city)
             w = observation.get_weather()
-            temp=w.get_temperature('celsius')['temp']
-
+            temp = w.get_temperature('celsius')['temp']
             answer = f"В {city_type} {city} ({region}) сейчас {w.get_detailed_status()} \n"
             answer += f"Температура в районе {round(temp)} градусов\n\n"
-
             bot.send_message(chatID, answer)
             #print(city)
         except:
