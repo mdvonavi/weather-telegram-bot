@@ -76,11 +76,11 @@ def get_text_messages(message):
 
 """@bot.message_handler(commands=['start']) #if user send /start bot send back help
 def start_message(message):
-    bot.send_message(message.chat.id, help_string)
+    bot.send_message(message.chat.id, help_string)"""
 
 @bot.message_handler(commands=['help']) #if user send /help bot send back help
 def start_message(message):
-    bot.send_message(message.chat.id, help_string)"""
+    bot.send_message(message.chat.id, help_string)
 
 @bot.message_handler(commands=['погода']) #if user send /погода bot send back weather info
 def start_message(message, chatID, city_type, region):
